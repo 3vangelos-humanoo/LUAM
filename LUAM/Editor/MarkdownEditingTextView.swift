@@ -7,6 +7,7 @@ enum FormatAction {
     case heading(Int)
     case lineStyle(MarkdownEditing.LineStyle)
     case formatTable
+    case insert(MarkdownEditing.BlockTemplate)
 }
 
 /// The source pane's text view. It decides *when* the rules in
@@ -116,6 +117,7 @@ final class MarkdownEditingTextView: NSTextView {
         case .heading(let level): MarkdownEditing.setHeading(level: level, in: text, selection: selection)
         case .lineStyle(let style): MarkdownEditing.toggleLineStyle(style, in: text, selection: selection)
         case .formatTable: TableFormatter.formatTable(in: text, selection: selection)
+        case .insert(let template): MarkdownEditing.insertBlock(template, in: text, selection: selection)
         }
         window?.makeFirstResponder(self)
         guard let edit else { return NSSound.beep() }

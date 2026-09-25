@@ -130,6 +130,11 @@ private struct FormatCommands: View {
             item("Task List", .lineStyle(.task), "t", [.command, .shift])
         }
         Section {
+            Menu("Insert") {
+                item("Table", .insert(.table), "t", [.command, .option, .shift])
+                item("Code Block", .insert(.codeBlock), "c", [.command, .option, .shift])
+                item("Divider", .insert(.rule), "-", [.command, .option, .shift])
+            }
             item("Align Table", .formatTable, "t", [.command, .option])
         }
     }

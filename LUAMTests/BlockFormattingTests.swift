@@ -109,3 +109,24 @@ private func apply(_ marked: String, _ edit: (String, NSRange) -> TextEdit?) -> 
         #expect(DocumentOutline.item(containing: 5, in: items)?.title == "Two")
     }
 }
+
+@Suite struct InsertBlockTests {
+    private func insert(_ template: MarkdownEditing.BlockTemplate, _ marked: String) -> String? {
+        apply(marked) { MarkdownEditing.insertBlock(template, in: $0, selection: $1) }
+    }
+
+    @Test func tableSelectsTheFirstHeader() {
+        #expect(insert(.table, "|") == "| |Column| | Column |\n| ------ | ------ |\n|        |        |\n")
+    }
+
+    @Test func separatesFromSurroundingText() {
+        #expect(insert(.rule, "a|b") == "a\n\n---\n\n|b")
+        #expect(insert(.rule, "a\n|\nb") == "a\n\n---\n|\nb")
+        #expect(insert(.rule, "a\n\n|") == "a\n\n---\n|")
+    }
+
+    @Test func codeBlockWrapsTheSelection() {
+        #expect(insert(.codeBlock, "|let x = 1|") == "```|\nlet x = 1\n```\n")
+        #expect(insert(.codeBlock, "|") == "```|\n```\n")
+    }
+}

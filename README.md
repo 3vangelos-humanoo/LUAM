@@ -70,6 +70,10 @@ Quit LUAM and move `LUAM.app` from Applications to the Trash. Settings live in
 | **Blocks** | ⌃⌘1–6 headings · ⌃⌘0 body text · ⇧⌘' quote · ⇧⌘L bullets · ⌥⌘L numbers · ⇧⌘T tasks · ⌥⌘T align table |
 | **File** | ⇧⌘E export HTML · ⌥⌘E export PDF · ⌘P print · ⌥⌘C copy as HTML |
 
+The toolbar has the same formatting commands: text styles, a heading menu,
+lists and quotes, and an **Insert** menu for tables (⌥⇧⌘T), code blocks
+(⌥⇧⌘C) and dividers (⌥⇧⌘-).
+
 While typing, Return continues lists and quotes, Tab / ⇧Tab indent (or move
 between table cells), and brackets and quotes close themselves. Dropping
 files onto the editor inserts links; pasting a screenshot into a saved

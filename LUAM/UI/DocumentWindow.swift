@@ -75,6 +75,7 @@ struct DocumentWindow: View {
             }
         }
         .toolbar {
+            FormattingToolbar(session: session, isEnabled: isEditable && mode != .preview)
             ToolbarItem(placement: .primaryAction) {
                 Picker("View", selection: $mode) {
                     ForEach(ViewMode.allCases, id: \.self) { mode in

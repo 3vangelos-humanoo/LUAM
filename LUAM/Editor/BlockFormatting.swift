@@ -8,6 +8,42 @@ nonisolated extension MarkdownEditing {
         case quote, bullet, numbered, task
     }
 
+    /// Blocks the Insert menu adds.
+    enum BlockTemplate: Sendable {
+        case table, codeBlock, rule
+    }
+
+    /// Inserts a block template on its own lines, adding blank lines around
+    /// it as needed. A table selects its first header for typing over; a code
+    /// block wraps the selection and leaves the cursor where the language goes.
+    static func insertBlock(_ template: BlockTemplate, in text: String, selection: NSRange) -> TextEdit {
+        let ns = text as NSString
+        let before = ns.substring(to: selection.location)
+        let after = ns.substring(from: NSMaxRange(selection))
+        let lead = before.isEmpty || before.hasSuffix("\n\n") ? "" : before.hasSuffix("\n") ? "\n" : "\n\n"
+        let trail = after.isEmpty ? "\n" : after.hasPrefix("\n\n") ? "" : after.hasPrefix("\n") ? "\n" : "\n\n"
+
+        let block: String
+        let focus: NSRange
+        switch template {
+        case .table:
+            block = "| Column | Column |\n| ------ | ------ |\n|        |        |"
+            focus = NSRange(location: 2, length: 6)
+        case .codeBlock:
+            let body = ns.substring(with: selection)
+            block = "```\n" + body + (body.hasSuffix("\n") || body.isEmpty ? "" : "\n") + "```"
+            focus = NSRange(location: 3, length: 0)
+        case .rule:
+            block = "---"
+            focus = NSRange(location: block.utf16.count + trail.utf16.count, length: 0)
+        }
+        let start = selection.location + lead.utf16.count
+        return TextEdit(
+            range: selection, replacement: lead + block + trail,
+            selection: NSRange(location: start + focus.location, length: focus.length)
+        )
+    }
+
     private static let headingPattern = try! NSRegularExpression(pattern: #"^[ ]{0,3}(#{1,6})(?:[ \t]+|$)"#)
     private static let singleQuotePattern = try! NSRegularExpression(pattern: #"^[ ]{0,3}> ?"#)
 
