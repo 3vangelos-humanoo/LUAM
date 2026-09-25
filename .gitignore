@@ -1,0 +1,14 @@
+# Xcode
+build/
+build.log
+DerivedData/
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+
+# macOS
+.DS_Store
+
+# Local tool state
+.claude/settings.local.json
+.cc-writes/

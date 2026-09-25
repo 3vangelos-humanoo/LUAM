@@ -1,0 +1,127 @@
+:root {
+  color-scheme: light dark;
+  --fg: #1d1d1f;
+  --muted: #6e6e73;
+  --bg: #ffffff;
+  --rule: #d2d2d7;
+  --code-bg: #f5f5f7;
+  --link: #0066cc;
+  --quote: #86868b;
+  --tok-keyword: #ad3da4;
+  --tok-comment: #707f8c;
+  --tok-string: #d12f1b;
+  --tok-number: #272ad8;
+  --tok-type: #3e8087;
+  --tok-attribute: #947100;
+  --tok-variable: #4b21b0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg: #f5f5f7;
+    --muted: #a1a1a6;
+    --bg: #1e1e1e;
+    --rule: #424245;
+    --code-bg: #2a2a2c;
+    --link: #4aa3ff;
+    --quote: #98989d;
+    --tok-keyword: #ff7ab2;
+    --tok-comment: #7f8c98;
+    --tok-string: #ff8170;
+    --tok-number: #d9c97c;
+    --tok-type: #6bdfff;
+    --tok-attribute: #ffa14f;
+    --tok-variable: #b281eb;
+  }
+}
+
+html { background: var(--bg); }
+
+body {
+  font: var(--luam-font-size, 16px)/1.6 -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  color: var(--fg);
+  max-width: 44em;
+  margin: 0 auto;
+  padding: 32px 40px 50vh;
+  word-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 { line-height: 1.25; margin: 1.6em 0 0.6em; font-weight: 650; }
+h1 { font-size: 2em; border-bottom: 1px solid var(--rule); padding-bottom: 0.3em; }
+h2 { font-size: 1.5em; border-bottom: 1px solid var(--rule); padding-bottom: 0.3em; }
+h3 { font-size: 1.25em; }
+h4 { font-size: 1em; }
+h5 { font-size: 0.875em; }
+h6 { font-size: 0.85em; color: var(--muted); }
+#luam-content > :first-child { margin-top: 0; }
+
+p, ul, ol, blockquote, pre, table, details { margin: 0 0 1em; }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
+
+ul, ol { padding-left: 2em; }
+li + li { margin-top: 0.25em; }
+li > ul, li > ol { margin: 0.25em 0 0; }
+ul.contains-task-list { list-style: none; padding-left: 1.2em; }
+.task-list-item input { margin: 0 0.4em 0 -1.2em; vertical-align: middle; }
+
+blockquote {
+  color: var(--quote);
+  border-left: 0.25em solid var(--rule);
+  padding: 0 1em;
+  margin-left: 0;
+}
+blockquote > :last-child { margin-bottom: 0; }
+
+code, kbd, pre { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.875em; }
+code { background: var(--code-bg); padding: 0.15em 0.35em; border-radius: 4px; }
+pre { background: var(--code-bg); padding: 12px 16px; border-radius: 8px; overflow-x: auto; line-height: 1.45; }
+pre code { background: none; padding: 0; font-size: 1em; }
+kbd {
+  border: 1px solid var(--rule);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+  background: var(--code-bg);
+}
+
+table { border-collapse: collapse; display: block; overflow-x: auto; }
+th, td { border: 1px solid var(--rule); padding: 6px 13px; }
+th { font-weight: 600; }
+tr:nth-child(2n) td { background: color-mix(in srgb, var(--code-bg) 60%, transparent); }
+
+details { border: 1px solid var(--rule); border-radius: 8px; padding: 0.5em 1em; }
+summary { cursor: pointer; font-weight: 600; }
+
+.tok-keyword { color: var(--tok-keyword); }
+.tok-comment { color: var(--tok-comment); font-style: italic; }
+.tok-string { color: var(--tok-string); }
+.tok-number { color: var(--tok-number); }
+.tok-type { color: var(--tok-type); }
+.tok-attribute { color: var(--tok-attribute); }
+.tok-variable { color: var(--tok-variable); }
+
+/* Export, PDF and print. The page is rendered in light appearance for paper. */
+body.luam-export { padding-bottom: 32px; }
+
+@media print {
+  html, body { background: none; }
+  body { max-width: none; padding: 0; }
+  pre, blockquote, table, img, details { break-inside: avoid; }
+  h1, h2, h3, h4, h5, h6 { break-after: avoid; }
+  pre { white-space: pre-wrap; }
+  table { display: table; }
+  a { color: inherit; text-decoration: underline; }
+}
+
+/* Math (KaTeX) and diagrams (Mermaid). Until a library has loaded — or if
+   it can't — the source shows, set as code. */
+.luam-math:not([data-rendered]) { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.875em; color: var(--muted); }
+.luam-math-display { display: block; margin: 0 0 1em; overflow-x: auto; overflow-y: hidden; }
+.luam-math-display:not([data-rendered]) { white-space: pre-wrap; }
+pre.mermaid[data-rendered] { background: none; padding: 0; text-align: center; overflow-x: auto; }
+pre.mermaid[data-rendered] svg { max-width: 100%; height: auto; }
+pre.mermaid.mermaid-error { border-left: 3px solid var(--tok-string); }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!--
+	  LUAM runs unsandboxed in v1: it is a personal tool on your own Mac, and the
+	  App Sandbox buys nothing here while costing provisioning-profile friction.
+
+	  To distribute it, enable the three keys below and flip
+	  ENABLE_HARDENED_RUNTIME to YES in the LUAM target's build settings.
+
+	  <key>com.apple.security.app-sandbox</key>
+	  <true/>
+	  <key>com.apple.security.files.user-selected.read-write</key>
+	  <true/>
+	  <key>com.apple.security.files.bookmarks.app-scope</key>
+	  <true/>
+	-->
+</dict>
+</plist>
